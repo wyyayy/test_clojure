@@ -4,7 +4,8 @@
 ;; helper utils
 (require '[clojure.repl :refer :all])
 ;;debugging parts of expressions
-(defmacro dbg[x] `(let [x# ~x] (println "dbg:" '~x "=" x#) x#))
+(defmacro dbg[x] `(let [x# ~x] (println "dbg:" '~x "=" x#)))
+;;(defmacro dbg[x] `(let [x# ~x] (println "dbg:" '~x "=" x#) x#))
 
 ;;-----------------------------------------------------------------------
 
@@ -98,6 +99,106 @@
 (defn divisible-by-3-or-5 [num] (or (== (mod num 3) 0)(== (mod num 5) 0))) 
 (divisible-by-3-or-5 4)
 
+(conj [1 2 3] 4) 
+
+  (conj '(1 2 3) 4) 
+
+  (filter #(< % 5) '(1 22 3 43 5 9)) 
+
+  (defn plus [& args] ( apply #(+ %1 %2) args ) )
+  (apply plus [1 3])
+
+  (reduce + 6 [ 1 2 3])
+
+  (reduce conj [] '(3 2 1))
+
+  (fn [] "Hello World")
+
+  (class {:a 1 :b 2 :c 3}) 
+
+  (def stringmap {"a" 1, "b" 2, "c" 3})
+  (def x 555)
+  x
+
+  (def newkeymap (assoc keymap :d 4))
+
+  keymap
+  newkeymap
+
+  (assoc keymap :d 4)
+
+  (->  
+    {:a 1 :b 2} 
+    (assoc :c 3) ;=> (assoc {:a 1 :b 2} :c 3)
+    (dissoc :b))
+
+  (into '(1 2) [3 4 5 6 7])  
+
+  (map concat ["xie"] ["spark" "jim" "tom"])
+
+  (->>
+      (range 10)
+      (map inc)     ;=> (map inc (range 10)
+      (filter odd?) ;=> (filter odd? (map inc (range 10))
+      (into []))    
+
+  (into [1 2 3] '(4 5 6))
+  (cons '(1 2 3) '(4 5 6))
+  (conj '(1 2 3) '(4 5 6))
+
+  (def cards '(10 :ace :jack 9))
+  (def cards '(:ace 10 :jack 9))
+  cards
+
+  (def stack '(:a :b :c))
+  stack
+  (peek stack)
+  (pop stack)
+  stack
+
+  (defmacro my-first-macro []
+    (list reverse "Hello World"))
+
+  (my-first-macro)
+
+  (macroexpand '(my-first-macro))
+  (eval (macroexpand '(my-first-macro)))
+
+  (defmacro my-first-quoted-macro []
+    '(reverse "Hello World"))
+
+  (my-first-quoted-macro)
+
+  (defmacro inc2 [arg]
+    (list + 2 arg))
+
+  (inc2 2)
+
+  (defmacro inc2-quoted [arg]
+    `(+ 2 ~arg))
+
+  (inc2-quoted 3)
+
+  (assoc [1 2 3 4 5] 0 0)
+  
+  (->> [1 2 3]   
+    (map inc)        ; (map inc [1 2 3])
+    (map inc)        ; (map inc (2 3 4))
+    (concat [0 2]))  ; (concat [0 2] (3 4 5))
+
+  (-> [1 2 3]
+    (conj 4)         ; (conj [1 2 3] 4)
+    (conj 5)         ; (conj [1 2 3 4] 5)
+    (assoc 0 0))     ; (assoc [1 2 3 4 5] 0 0)    
+
+  (as-> [1 2 3] input
+    (map inc input);=> You can use last transform's output at the last position
+    (nth input 2) ;=>  and at the second position, in the same expression
+    (conj [4 5 6] input [8 9 10])) 
+
+(doseq [l (map #(str "Happy Birthday " (if (= % 2) "dear Rich" "to You")) (range 4))] (println l))      
+
+(def fib-seq (lazy-cat [0 1] (map + fib-seq (rest fib-seq))))
 
 (import java.util.Date)
 
