@@ -1,10 +1,10 @@
 # test_clojure
 
-FIXME: description
+Some practices of clojure
 
 ## Installation
 
-Download from http://example.com/FIXME.
+
 
 ## Usage
 

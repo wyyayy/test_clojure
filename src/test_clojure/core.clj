@@ -99,6 +99,69 @@
 (divisible-by-3-or-5 4)
 
 
+(import java.util.Date)
+
+; Use "use" to get all functions from the module
+(use 'clojure.set)
+
+; test作为当前的namespace，这样后续代码可以直接使用Date，Calendar类
+(ns test
+  (:import java.util.Date
+           java.util.Calendar))
+
+(Date.)
+
+(import java.util.Calendar)
+(doto (Calendar/getInstance)
+  (.set 2000 1 1 0 0 0) (.getTime))
+
+
+(def my-atom (atom {:b 2}))  
+my-atom
+
+(swap! my-atom assoc :a 1)
+my-atom
+
+@my-atom
+
+(def counter (atom 0))
+(defn inc-counter []
+  (swap! counter inc))
+
+(inc-counter)
+
+
+(defmacro unless [arg & body]
+  `(if (not ~arg)
+     (do ~@body))) 
+
+(macroexpand '(unless true (reverse "Hello World")))
+(unless false 22 33 44)
+(do 33 44)
+
+(defmacro define-x []
+  '(do
+     (def x 2)
+     (list x)))
+
+(def x 4)
+x
+(define-x) ; -> (2)
+(list x) ; -> (2)
+
+
+(println (gensym 'z))
+
+
+; Now we can use set operations
+(intersection #{1 2 3} #{2 3 4}) ; => #{2 3}
+(difference #{1 2 3} #{2 3 4}) ; => #{1}
+
+(require 'clojure.string)
+
+(clojure.string/blank? "ddd")
+
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
