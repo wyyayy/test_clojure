@@ -9,6 +9,73 @@
 
 ;;-----------------------------------------------------------------------
 
+(defn fac [n]
+  (if (= 1 n)
+    1
+    (+ n (fac (dec n)))))
+
+
+(defn fac [n]
+   (defn fac0 [c r]
+      (if (= 0 c)
+          r
+          (recur (dec c) (+ c r))))
+   (fac0 n 1))
+
+(fac 10000)
+
+(defn fib [n]
+  (loop [fib-nums [0 1]]
+    (if (>= (count fib-nums) n)
+      (subvec fib-nums 0 n)
+      (let [[n1 n2] (reverse fib-nums)]
+        (recur (conj fib-nums (+ n1 n2)))))))
+
+(fib 10)
+
+
+(defn LoopPrint [endValue] (loop [a 0] (if (< a endValue) (do (println a) (recur (+ 1 a)))) ) )
+(LoopPrint 100)
+
+
+( loop [a 0] (if (< a 10) (do (println a) (recur (+ 1 a)))) )
+
+
+(defn countdown [result x] 
+  (if (zero? x)
+    result
+    (recur (conj result x) (dec x)))
+)
+
+(countdown [] 100)
+
+(do (conj [] 3) (dec 3))
+
+(let [x 5]
+  (cond
+    (< x 2) "x is less than 2"
+    (< x 10) "x is less than 10"))
+
+(if (even? 5)
+  (do (println "even")
+      true)
+  (do (println "odd")
+      false))
+
+(let [x 11]
+    (cond
+      (< x 2)  "x is less than 2"
+      (< x 10) "x is less than 10"
+      :else  "x is greater than or equal to 10"))
+
+(defn foo [x]
+    (case x
+       5 "x is 5"
+       10 "x is 10"
+       "x isn't 5 or 10" ))
+
+(foo 1)
+
 (class 1)
 (class 1.)
 
